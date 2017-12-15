@@ -1,12 +1,13 @@
-
+import pygame
 class Player(object):
 
-    def __init__(self):
+    def __init__(self, startX, StartY, width):
         self.lifes = 3
         self.image = "images/player.png"
-        self.posX = 450
-        self.posY = 850
+        self.posX = startX
+        self.posY = StartY
         self.moveSpeed = 10
+        self.maxWidth = (width - 200)
 
     
     def getPosition(self):
@@ -27,7 +28,7 @@ class Player(object):
         if self.posX > 0:
             self.posX -= self.moveSpeed
     def moveRight(self):
-        if self.posX < 900:
+        if self.posX < self.maxWidth:
             self.posX += self.moveSpeed
     
     def decreaseLife(self):
