@@ -21,7 +21,7 @@ class Acorn(object):
             return True
         return False
 
-    def is_collided_with(self, player):
+    def isCollidedWith(self, player):
         return self.rect.colliderect(player.rect)
 
     def render(self, screen):

@@ -36,19 +36,13 @@ def movement():
             if event.key == pygame.K_ESCAPE:
                 gameActive = False
 
-# def hitAcorn(player, acorn):
-    
-#     if acorn.is_collided_with(player):
-#         print("hit")
-
 while gameActive:
     movement()
     Acorn.moveDown()
     screen.fill(black)
     Player.render(screen)
     Acorn.render(screen)
-    if Acorn.is_collided_with(Player):
+    if Acorn.isCollidedWith(Player):
         print("Hit")
-        # Acorn.kill()
     clock.tick(30)
     pygame.display.flip()
