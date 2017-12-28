@@ -12,22 +12,21 @@ black = 255,255,255
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode(size)
 screenRect = screen.get_rect()
-print()
 
-player = Player.Player((screenRect[2] / 3), (screenRect[3] // 2) +200, width)
-playerImage = pygame.image.load(player.getImage())
+Player = Player.Player((screenRect[2] / 3), (screenRect[3] // 2) +200, width)
 Acorn = Acorn.Acorn(300, screenRect[3])
-AcornImage = pygame.image.load(Acorn.getImage())
+# AcornImage = pygame.image.load(Acorn.getImage())
 
 gameActive = True
 
-while gameActive:
+def movement():
+    global gameActive
     keyDown = pygame.key.get_pressed()
     pygame.key.set_repeat(1,50)
     if keyDown[pygame.K_d or keyDown[pygame.K_RIGHT]]:
-        player.moveRight()
+        Player.moveRight()
     elif keyDown[pygame.K_a] or keyDown[pygame.K_LEFT]:
-        player.moveLeft()
+        Player.moveLeft()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -36,12 +35,20 @@ while gameActive:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 gameActive = False
+
+# def hitAcorn(player, acorn):
     
+#     if acorn.is_collided_with(player):
+#         print("hit")
+
+while gameActive:
+    movement()
     Acorn.moveDown()
     screen.fill(black)
-    screen.blit(playerImage, player.getPosition())
-    screen.blit(AcornImage, Acorn.getPosition())
-    if(Acorn.getPosition()[1] == player.getPosition()[1]):
-        print("hit!")
+    Player.render(screen)
+    Acorn.render(screen)
+    if Acorn.is_collided_with(Player):
+        print("Hit")
+        # Acorn.kill()
     clock.tick(30)
     pygame.display.flip()
