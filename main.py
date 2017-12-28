@@ -5,6 +5,7 @@ import Acorn
 
 
 pygame.init()
+font = pygame.font.SysFont('Comic Sans MS', 30)
 
 size = width, height = 1200, 800
 black = 255,255,255
@@ -15,7 +16,6 @@ screenRect = screen.get_rect()
 
 Player = Player.Player((screenRect[2] / 3), (screenRect[3] // 2) +200, width)
 Acorn = Acorn.Acorn(300, screenRect[3])
-# AcornImage = pygame.image.load(Acorn.getImage())
 
 gameActive = True
 
@@ -42,7 +42,10 @@ while gameActive:
     screen.fill(black)
     Player.render(screen)
     Acorn.render(screen)
+
     if Acorn.isCollidedWith(Player):
-        print("Hit")
+        Player.decreaseLife()
+
+    screen.blit(font.render('Lifes: ' + str(Player.lifes),  False, (0,0,0)), (0,0))
     clock.tick(30)
     pygame.display.flip()

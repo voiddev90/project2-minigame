@@ -11,12 +11,6 @@ class Player(object):
     
     def getPosition(self):
         return (self.rect.x, self.rect.y)
-    
-    def getImage(self):
-        return self.image
-
-    def getLifes(self):
-        return self.lifes
 
     def isPlayerAlive(self):
         if self.lifes > 0:
@@ -26,6 +20,7 @@ class Player(object):
     def moveLeft(self):
         if self.rect.x > 0:
             self.rect.x -= self.moveSpeed
+            
     def moveRight(self):
         if self.rect.x < self.maxWidth:
             self.rect.x += self.moveSpeed
