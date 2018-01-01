@@ -9,7 +9,8 @@ pygame.init()
 font = pygame.font.SysFont('Comic Sans MS', 30)
 
 size = width, height = 1200, 800
-black = 255,255,255
+background = pygame.image.load("images/background.jpg")
+backgroundRect = background.get_rect()
 
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode(size)
@@ -22,6 +23,7 @@ player = Player((screenRect[2] / 3), (screenRect[3] // 2) +200, width)
 gameActive = True
 acorns = []
 lastSpawn = 0
+wonGame = False
 
 def moveAcorns():
     global acorns
@@ -66,18 +68,21 @@ def movement():
             if event.key == pygame.K_ESCAPE:
                 gameActive = False
 
-lastSpawn = pygame.time.get_ticks()
 while gameActive:
-    movement()
-    screen.fill(black)
-    player.render(screen)
-    moveAcorns()
-    now = pygame.time.get_ticks()
-    if len(acorns) < 5 and (now - lastSpawn) >= spawnTime:
-        spawnAcorn()
-        lastSpawn = now
-    screen.blit(font.render('Lifes: ' + str(player.lifes),  False, (0,0,0)), (0,0))
-    if now == winTime:
-        print("Win!")
+    screen.fill((255,255,255))
+    screen.blit(background, backgroundRect)
+    if not wonGame:
+        movement()
+        player.render(screen)
+        moveAcorns()
+        now = pygame.time.get_ticks()
+        screen.blit(font.render('Lifes: ' + str(player.lifes),  False, (0,0,0)), (0,0))
+        if len(acorns) < 5 and (now - lastSpawn) >= spawnTime:
+            spawnAcorn()
+            lastSpawn = now
+        if now == winTime:
+            wonGame = True
+    else:
+        screen.blit(font.render('Gewonnen!',  False, (0,0,0)), (0,0))
     clock.tick(30)
     pygame.display.flip()
