@@ -3,7 +3,7 @@ class Player(object):
 
     def __init__(self, startX, StartY, width):
         self.lifes = 3
-        self.moveSpeed = 10
+        self.moveSpeed = 15
         self.maxWidth = (width - 200)
         self.image = pygame.image.load("images/player1-left.png")
         self.rect = self.image.get_rect().move(startX, StartY)
