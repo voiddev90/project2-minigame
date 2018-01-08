@@ -17,8 +17,8 @@ class Game():
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode(self.size)
         self.screenRect = self.screen.get_rect()
-        # winTime = 120000
-        self.winTime = 5000
+        self.winTime = 120000
+        # self.winTime = 5000
         self.spawnTime = 2000
 
         self.player = Player((self.screenRect[2] / 3), (self.screenRect[3] // 2) +200, self.width)
@@ -79,6 +79,7 @@ class Game():
             self.screen.fill((255,255,255))
             self.screen.blit(self.background, self.backgroundRect)
             self.movement()
+            self.screen.blit(self.font.render('Lifes: ' + str(self.player.lifes),  False, (0,0,0)), (0,0))
             now = pygame.time.get_ticks()
             if not self.stopGame:
                 self.moveAcorns()
