@@ -1,5 +1,6 @@
 import pygame
 import sys
+import os
 from Player import Player
 from Acorn import Acorn
 from random import randint
@@ -7,11 +8,12 @@ class Game():
 
     def __init__(self):
         pygame.init()
+        self.folder = os.path.dirname(__file__)
         self.font = pygame.font.SysFont('Comic Sans MS', 30)
         self.winFont = pygame.font.SysFont('Comic Sans MS', 50)
 
         self.size = self.width, self.height = 1200, 800
-        self.background = pygame.image.load("images/background.jpg")
+        self.background = pygame.image.load(self.folder + "/images/background.jpg")
         self.backgroundRect = self.background.get_rect()
 
         self.clock = pygame.time.Clock()

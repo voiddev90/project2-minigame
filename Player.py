@@ -1,11 +1,13 @@
 import pygame
+import os
 class Player(object):
 
     def __init__(self, startX, StartY, width):
+        self.folder = os.path.dirname(__file__)
         self.lifes = 3
         self.moveSpeed = 15
         self.maxWidth = (width - 200)
-        self.image = pygame.image.load("images/player1-left.png")
+        self.image = pygame.image.load(self.folder + "/images/player1-left.png")
         self.rect = self.image.get_rect().move(startX, StartY)
 
     
@@ -18,12 +20,12 @@ class Player(object):
         return False
 
     def moveLeft(self):
-        self.image = pygame.image.load("images/player1-left.png")
+        self.image = pygame.image.load(self.folder + "/images/player1-left.png")
         if self.rect.x > 0:
             self.rect.x -= self.moveSpeed
             
     def moveRight(self):
-        self.image = pygame.image.load("images/player1-right.png")
+        self.image = pygame.image.load(self.folder + "/images/player1-right.png")
         if self.rect.x < self.maxWidth:
             self.rect.x += self.moveSpeed
     
