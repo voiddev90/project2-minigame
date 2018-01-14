@@ -19,7 +19,7 @@ class Game():
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode(self.size)
         self.screenRect = self.screen.get_rect()
-        self.winTime = 120000
+        self.winTime = 60000
         # self.winTime = 5000
         self.spawnTime = 2000
 
@@ -28,6 +28,7 @@ class Game():
         self.gameActive = True
         self.acorns = []
         self.lastSpawn = 0
+        self.lastSpawnPoint = 0
         self.stopGame = False
         self.gameWon = False
 
@@ -53,7 +54,7 @@ class Game():
         if (randomPoint - self.lastSpawn) <= 10:
             randomPoint += 30
         self.acorns.append(Acorn(randomPoint, self.height))
-        self.lastSpawn = randomPoint
+        self.lastSpawnPoint = randomPoint
     
     def renderAcorns(self):
         for acorn in self.acorns:
