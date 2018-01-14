@@ -2,10 +2,10 @@ import pygame
 import os
 class Acorn(object):
 
-    def __init__(self, x, height):
+    def __init__(self, x, height, speed):
         self.folder = os.path.dirname(__file__)
         self.image = pygame.image.load(self.folder + "/images/acorn.png")
-        self.moveSpeed = 10
+        self.moveSpeed = speed
         self.maxHeight = height
         self.rect = self.image.get_rect().move(x, -100)
         

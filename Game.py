@@ -21,7 +21,7 @@ class Game():
         self.screenRect = self.screen.get_rect()
         self.winTime = 60000
         # self.winTime = 5000
-        self.spawnTime = 2000
+        self.spawnTime = 1500
 
         self.player = Player((self.screenRect[2] / 3), (self.screenRect[3] // 2) +200, self.width)
 
@@ -31,6 +31,7 @@ class Game():
         self.lastSpawnPoint = 0
         self.stopGame = False
         self.gameWon = False
+        self.acornSpeed = 10
 
     def isGameWon(self):
         return self.gameWon
@@ -53,7 +54,7 @@ class Game():
         randomPoint = randint(0, (self.width - 200))
         if (randomPoint - self.lastSpawn) <= 10:
             randomPoint += 30
-        self.acorns.append(Acorn(randomPoint, self.height))
+        self.acorns.append(Acorn(randomPoint, self.height, self.acornSpeed))
         self.lastSpawnPoint = randomPoint
     
     def renderAcorns(self):
@@ -77,6 +78,16 @@ class Game():
                 if event.key == pygame.K_ESCAPE and self.stopGame:
                     self.gameActive = False
     
+    def setStage(self, time):
+        if(time > 20000 and time < 40000):
+            self.acornSpeed = 20
+            self.spawnTime = 1000
+            print("stage 2")
+        elif time >= 40000:
+            # self.acornSpeed = 20
+            self.spawnTime = 700
+            print("stage 3")
+    
     def runGame(self):
         while self.gameActive:
             self.screen.fill((255,255,255))
@@ -86,6 +97,7 @@ class Game():
             now = pygame.time.get_ticks()
             if not self.stopGame:
                 self.moveAcorns()
+                self.setStage(now)
                 if len(self.acorns) < 5 and (now - self.lastSpawn) >= self.spawnTime:
                     self.spawnAcorn()
                     self.lastSpawn = now
